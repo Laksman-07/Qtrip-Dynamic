@@ -1,17 +1,30 @@
 
 import config from "../conf/index.js";
+const address= "3.111.104.251:8082";
 
 //Implementation to extract city from query params
 function getCityFromURL(search) {
   // TODO: MODULE_ADVENTURES
   // 1. Extract the city id from the URL's Query Param and return it
-
+  let params = new URLSearchParams(search);
+  return (params.get("city"));
 }
 
 //Implementation of fetch call with a paramterized input based on city
 async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES
   // 1. Fetch adventures using the Backend API and return the data
+  try{
+    //console.log("https://"+address+"/adventures?city="+city);
+    //console.log(city);
+    let adv = await fetch(config.backendEndpoint+"/adventures?city="+city);
+    let res= await adv.json();
+    console.log(res);
+    return res;
+  }
+  catch(e){
+    return null;
+  }
 
 }
 
@@ -19,6 +32,30 @@ async function fetchAdventures(city) {
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
+  let div=document.getElementById("data");
+  for(let i=0;i<adventures.length;i++){
+    let content=`
+    <div class="col-6 col-lg-3 mb-4 position-relative"  >
+    <div class="category-banner">
+    ${adventures[i].category}
+    </div>
+    <a id="${adventures[i].id}" href="detail/?adventure=${adventures[i].id}">
+      <div class="activity-card" id="${adventures[i].id}">
+        <img src="${adventures[i].image}" />
+        <div class=" d-flex flex-column  flex-md-row align-items-center align-items-md-baseline justify-content-md-between px-md-3 flex-wrap pb-0 pt-2 w-100">         
+         <p class="mb-0">${adventures[i].name}</p>
+         <p >&#8377; ${adventures[i].costPerHead}</p>        
+         </div>
+         <div class=" d-flex flex-column flex-md-row align-items-center align-items-md-baseline justify-content-md-between px-md-3 flex-wrap w-100"> 
+         <p class="mb-0">Duration</p> 
+         <p>${adventures[i].duration} Hour</p>        
+        </div>
+      </div>
+    </a>
+  </div>`
+  console.log("detail/?adventure="+adventures[0].id)
+    div.innerHTML+=content;
+  }
 
 }
 

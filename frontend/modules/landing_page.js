@@ -1,5 +1,5 @@
 import config from "../conf/index.js";
-const address="3.109.113.81:8082/";
+//const address="3.7.241.163:8082/";
 
 async function init() {
   //Fetches list of all cities along with their images and description
@@ -16,7 +16,7 @@ async function fetchCities() {
   // TODO: MODULE_CITIES
   // 1. Fetch cities using the Backend API and return the data
   try{
-    let res= await fetch("http://"+address+"cities");
+    let res= await fetch(config.backendEndpoint+"/cities");
     let city= await res.json();
     console.log(city);
     return city;
@@ -34,9 +34,9 @@ function addCityToDOM(id, city, description, image) {
   // 1. Populate the City details and insert those details into the DOM
   let parentElement = document.getElementById("data");
   let content = `
-  <div class="col-12 col-sm-6 col-lg-3 mb-4 " id="${id}" >
-    <a id="${id}" href="pages/adventures/?city=<${id}>">
-      <div class="tile" id="${id}">
+  <div class="col-12 col-sm-6 col-lg-3 mb-4 " >
+    <a id="${id}" href="pages/adventures/?city=${id}">
+      <div class="tile" >
         <img src="${image}" />
         <div class="tile-text text-center">
           <h5>${city}</h5>
