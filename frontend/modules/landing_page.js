@@ -1,5 +1,4 @@
 import config from "../conf/index.js";
-//const address="3.7.241.163:8082/";
 
 async function init() {
   //Fetches list of all cities along with their images and description

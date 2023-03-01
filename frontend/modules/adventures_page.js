@@ -31,7 +31,7 @@ async function fetchAdventures(city) {
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
-  console.log(adventures);
+  //console.log(adventures);
   let div=document.getElementById("data");
   for(let i=0;i<adventures.length;i++){
     let content=`
